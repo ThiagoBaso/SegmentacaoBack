@@ -341,6 +341,8 @@ async def websocket_segmentacao(websocket: WebSocket, session_id: str):
 
             # ── PONTO: usuário clicou na imagem ──────────────────────────────
             if acao == "ponto":
+                print('ponto recebido')
+
                 x     = int(dados["x"])
                 y     = int(dados["y"])
                 label = int(dados.get("label", 1))
