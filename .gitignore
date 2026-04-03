@@ -1,4 +1,5 @@
 __pycache__/
 __pycache__/main.cpython-314.pyc
 uploads/
+/venv/*
 sam_vit_h_4b8939.pth

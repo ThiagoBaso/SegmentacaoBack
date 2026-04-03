@@ -256,6 +256,22 @@ async def upload_imagem(arquivo: UploadFile = File(...)):
         "mensagem":   "Imagem pronta. Conecte ao WebSocket para iniciar a seleção."
     }
 
+@app.get("/fazendas")
+async def get_fazendas():
+    return [
+        {
+            "id": "faz_001",
+            "nome": "Fazenda Boa Vista",
+            "thumbnail": None,
+            "localizacao": {"cidade": "Tupã", "estado": "SP"},
+            "area_total_ha": 320.5,
+            "talhoes": [
+                {"id": "tal_001", "nome": "Talhão A", "area_ha": 85.2, "cor": "#00FFAA"},
+                {"id": "tal_002", "nome": "Talhão B", "area_ha": 112.0, "cor": "#00AAFF"},
+            ],
+        }
+    ]
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # ENDPOINT 2 — WEBSOCKET (comunicação em tempo real)
