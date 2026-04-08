@@ -1,5 +1,24 @@
+# Python
 __pycache__/
-__pycache__/main.cpython-314.pyc
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Local runtime files
 uploads/
-/venv/*
+
+# Large local model file
 sam_vit_h_4b8939.pth
+
+# Environment/config secrets
+.env
+.env.*
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
