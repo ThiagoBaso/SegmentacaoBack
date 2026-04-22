@@ -15,7 +15,7 @@ os.makedirs(PASTA_UPLOADS, exist_ok=True)
 async def lifespan(app: FastAPI):
     log.info("Carregando modelo SAM...")
     try:
-        from segment_anything import SamPredictor, sam_model_registry
+        from segment_anything_hq import SamPredictor, sam_model_registry
         import torch
 
         if not os.path.exists(MODELO_PATH):

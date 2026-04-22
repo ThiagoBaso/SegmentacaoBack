@@ -1,4 +1,4 @@
-MODELO_PATH = "sam_vit_h_4b8939.pth"
+MODELO_PATH = "sam_hq_vit_h.pth"
 PASTA_UPLOADS = "uploads"
 AREA_MINIMA_PX = 2000
 KERNEL_MORFOLOGICO = 7
