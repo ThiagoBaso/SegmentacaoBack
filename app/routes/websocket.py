@@ -161,6 +161,7 @@ async def websocket_segmentacao(websocket: WebSocket, session_id: str):
                 await websocket.send_json({
                     "tipo": "poligono_editado",
                     "id": talhao_id,
+                    "poligono": talhao["poligono"],
                     "area_pixels": talhao["area_pixels"],
                 })
 
