@@ -6,12 +6,14 @@ import aiofiles
 import cv2
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse
+from fastapi.responses import JSONResponse
 
 from app.config import MAX_SESSOES, PASTA_UPLOADS
 from app.logging_config import log
 from app.services.image_processing import preprocessar
 from app.services.geotiff_service import processar_geotiff
 from app.state import state
+from app.services.geojson_service import montar_geojson
 
 router = APIRouter()
 
@@ -100,7 +102,6 @@ async def servir_imagem(session_id: str):
 
     return FileResponse(png_path, media_type="image/png")
 
-
 @router.get("/sessao/{session_id}")
 async def info_sessao(session_id: str):
     """Retorna os talhões confirmados da sessão."""
@@ -114,6 +115,29 @@ async def info_sessao(session_id: str):
         "talhoes": sessao["talhoes"],
     }
 
+@router.get("/exportar/{session_id}")
+async def exportar_geojson(session_id: str):
+    if session_id not in state.sessoes:
+        raise HTTPException(status_code=404, detail="Sessão não encontrada.")
+
+    sessao = state.sessoes[session_id]
+
+    if not sessao["talhoes"]:
+        raise HTTPException(status_code=400, detail="Nenhum talhão confirmado nessa sessão.")
+
+    geojson = montar_geojson(
+        talhoes=sessao["talhoes"],
+        bounds=sessao["bounds"],
+        largura=sessao["imagem_rgb"].shape[1],
+        altura=sessao["imagem_rgb"].shape[0],
+    )
+
+    return JSONResponse(
+        content=geojson,
+        headers={
+            "Content-Disposition": f"attachment; filename=talhoes_{session_id[:8]}.geojson"
+        }
+    )
 
 @router.delete("/sessao/{session_id}")
 async def encerrar_sessao(session_id: str):
