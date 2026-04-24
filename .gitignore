@@ -12,7 +12,7 @@ env/
 uploads/
 
 # Large local model file
-sam_vit_h_4b8939.pth
+sam_hq_vit_h.pth
 sam_vit_h_4b8939.pth
 
 # Environment/config secrets
